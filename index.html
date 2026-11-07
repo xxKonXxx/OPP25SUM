@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#0b1420" />
+  <meta name="description" content="One Piece: Grand Line Adventure — a handcrafted pixel-art platformer starring Luffy and the Straw Hat crew." />
+  <title>One Piece · Grand Line Adventure</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="stage">
+      <canvas id="game-canvas" width="480" height="270" aria-label="Game screen"></canvas>
+
+      <div id="ui">
+        <!-- ================= MAIN MENU ================= -->
+        <section class="screen menu-screen" id="screen-menu">
+          <div class="menu-scrim"></div>
+          <div class="menu-wrap">
+            <header class="logo">
+              <div class="logo-kicker"><span></span>A PIRATE'S TALE<span></span></div>
+              <h1 class="logo-title"><span class="t-one">ONE</span><span class="t-piece">PIECE</span></h1>
+              <div class="logo-sub">GRAND LINE <b>ADVENTURE</b></div>
+            </header>
+
+            <nav class="menu-buttons">
+              <button class="btn btn-gold btn-continue" data-action="continue">
+                <span class="btn-arrow">&#9654;</span>
+                <span class="btn-body">
+                  <span class="btn-main">CONTINUE</span>
+                  <span class="btn-sub" id="continue-sub">1-1 &middot; DAWN BEACH</span>
+                </span>
+              </button>
+              <div class="menu-row">
+                <button class="btn" data-action="worlds"><span class="btn-main">WORLD MAP</span></button>
+                <button class="btn" data-action="characters"><span class="btn-main">CREW</span></button>
+              </div>
+              <div class="menu-row">
+                <button class="btn" data-action="records"><span class="btn-main">RECORDS</span></button>
+                <button class="btn" data-action="settings"><span class="btn-main">SETTINGS</span></button>
+              </div>
+            </nav>
+
+            <div class="menu-meta">
+              <span><i class="dot dot-berry"></i><b id="menu-berries">0</b> BERRIES</span>
+              <span><i class="dot dot-flag"></i><b id="menu-completion">0%</b> COMPLETE</span>
+              <span><i class="dot dot-crew"></i><b id="menu-crew">1</b>/4 CREW</span>
+            </div>
+            <div class="menu-hint">A / D OR ARROWS MOVE &nbsp;&middot;&nbsp; SHIFT SPRINT &nbsp;&middot;&nbsp; SPACE JUMP &times;2 &nbsp;&middot;&nbsp; J / LMB ATTACK &nbsp;&middot;&nbsp; K / RMB DASH &nbsp;&middot;&nbsp; Q GEAR 2 &nbsp;&middot;&nbsp; E GEAR 3 &nbsp;&middot;&nbsp; ESC PAUSE</div>
+          </div>
+
+          <aside class="menu-side">
+            <div class="wanted">
+              <div class="wanted-head">WANTED</div>
+              <div class="wanted-dead">DEAD OR ALIVE</div>
+              <div class="wanted-name" id="menu-wanted">MONKEY D. LUFFY</div>
+              <div class="wanted-rule"></div>
+              <div class="wanted-bounty">฿ <b>1,500,000,000</b></div>
+              <div class="wanted-foot">STRAW HAT PIRATES</div>
+            </div>
+            <div class="seal">GRAND<br />LINE</div>
+          </aside>
+
+          <footer class="menu-footer">A FAN-MADE PIXEL ADVENTURE &middot; SET SAIL WITH SOUND ON</footer>
+        </section>
+
+        <!-- ================= WORLD MAP ================= -->
+        <section class="screen page-screen" id="screen-worlds">
+          <header class="page-head">
+            <button class="icon-btn" data-action="back-menu" aria-label="Back">&#8592;</button>
+            <div class="page-titles">
+              <div class="page-kicker">THE GRAND LINE</div>
+              <h2>WORLD MAP</h2>
+            </div>
+            <div class="page-stat"><b id="worlds-completion">0%</b><span>COMPLETE</span></div>
+          </header>
+          <div class="worlds-grid" id="worlds-grid"></div>
+          <footer class="page-foot">
+            <span>Clear both islands to conquer a world and unlock the next.</span>
+            <span class="foot-mark">&#9760;</span>
+          </footer>
+        </section>
+
+        <!-- ================= CREW ================= -->
+        <section class="screen page-screen" id="screen-characters">
+          <header class="page-head">
+            <button class="icon-btn" data-action="back-menu" aria-label="Back">&#8592;</button>
+            <div class="page-titles">
+              <div class="page-kicker">STRAW HAT PIRATES</div>
+              <h2>CHOOSE YOUR CREW</h2>
+            </div>
+            <div class="page-stat"><b id="crew-count">1/4</b><span>UNLOCKED</span></div>
+          </header>
+          <div class="crew-grid" id="crew-grid"></div>
+          <footer class="page-foot">
+            <span>Each pirate has unique speed, power and special techniques.</span>
+            <span class="foot-mark">&#9760;</span>
+          </footer>
+        </section>
+
+        <!-- ================= SETTINGS ================= -->
+        <section class="screen page-screen" id="screen-settings">
+          <header class="page-head">
+            <button class="icon-btn" data-action="settings-back" aria-label="Back">&#8592;</button>
+            <div class="page-titles">
+              <div class="page-kicker">SHIP'S CONFIGURATION</div>
+              <h2>SETTINGS</h2>
+            </div>
+            <div class="page-stat"><b>SOUND</b><span>&amp; VIDEO</span></div>
+          </header>
+          <div class="settings-wrap">
+            <div class="settings-panel">
+              <label class="setting-row">
+                <span class="setting-name">MASTER VOLUME</span>
+                <input type="range" min="0" max="100" step="1" data-setting="master" />
+                <output data-output="master">80%</output>
+              </label>
+              <label class="setting-row">
+                <span class="setting-name">MUSIC</span>
+                <input type="range" min="0" max="100" step="1" data-setting="music" />
+                <output data-output="music">55%</output>
+              </label>
+              <label class="setting-row">
+                <span class="setting-name">SOUND EFFECTS</span>
+                <input type="range" min="0" max="100" step="1" data-setting="sfx" />
+                <output data-output="sfx">80%</output>
+              </label>
+              <div class="setting-divider"></div>
+              <label class="setting-row setting-toggle">
+                <span class="setting-name">SCREEN SHAKE</span>
+                <input type="checkbox" data-toggle="shake" />
+                <span class="switch"><i></i></span>
+              </label>
+              <label class="setting-row setting-toggle">
+                <span class="setting-name">SIGNPOST HINTS</span>
+                <input type="checkbox" data-toggle="hints" />
+                <span class="switch"><i></i></span>
+              </label>
+              <div class="setting-note">Progress is saved automatically to this browser. Every berry counts.</div>
+            </div>
+            <div class="settings-side">
+              <div class="control-card">
+                <h3>CONTROLS</h3>
+                <div class="control-row"><kbd>A</kbd><kbd>D</kbd><span>Move &middot; arrows work too</span></div>
+                <div class="control-row"><kbd>SHIFT</kbd><span>Sprint</span></div>
+                <div class="control-row"><kbd>SPACE</kbd><span>Jump &middot; press twice for double jump</span></div>
+                <div class="control-row"><kbd>J</kbd><kbd>LMB</kbd><span>Attack &middot; Gum-Gum Pistol</span></div>
+                <div class="control-row"><kbd>K</kbd><kbd>RMB</kbd><span>Dash &middot; Gum-Gum Rocket</span></div>
+                <div class="control-row"><kbd>Q</kbd><span>Gear Second</span></div>
+                <div class="control-row"><kbd>E</kbd><span>Gear Third</span></div>
+                <div class="control-row"><kbd>ESC</kbd><span>Pause</span></div>
+              </div>
+              <button class="btn btn-danger" data-action="reset-save">ERASE ALL PROGRESS</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= RECORDS ================= -->
+        <section class="screen page-screen" id="screen-records">
+          <header class="page-head">
+            <button class="icon-btn" data-action="back-menu" aria-label="Back">&#8592;</button>
+            <div class="page-titles">
+              <div class="page-kicker">CAPTAIN'S LOGBOOK</div>
+              <h2>RECORDS</h2>
+            </div>
+            <div class="page-stat"><b id="records-completion">0%</b><span>COMPLETE</span></div>
+          </header>
+          <div class="records-wrap">
+            <div class="records-stats" id="records-stats"></div>
+            <div class="records-table" id="records-table"></div>
+          </div>
+          <footer class="page-foot">
+            <span>Best times and berry records are kept for every island.</span>
+            <span class="foot-mark">&#9760;</span>
+          </footer>
+        </section>
+
+        <!-- ================= PAUSE ================= -->
+        <section class="screen modal-screen" id="screen-pause">
+          <div class="modal modal-pause">
+            <div class="modal-kicker">CAPTAIN'S LOG</div>
+            <h2>PAUSED</h2>
+            <div class="modal-sub" id="pause-level">1-1 &middot; DAWN BEACH</div>
+            <div class="pause-vitals">
+              <span>HEARTS <b id="pause-hearts">5</b></span>
+              <span>LIVES <b id="pause-lives">3</b></span>
+              <span>BERRIES <b id="pause-berries">0</b></span>
+            </div>
+            <div class="modal-buttons">
+              <button class="btn btn-gold" data-action="resume">RESUME</button>
+              <button class="btn" data-action="restart">RESTART LEVEL</button>
+              <button class="btn" data-action="pause-settings">SETTINGS</button>
+              <button class="btn" data-action="quit">QUIT TO MENU</button>
+            </div>
+            <div class="pause-tip" id="pause-tip">Tip: Gear Third has a long cooldown — save it for crowds.</div>
+          </div>
+        </section>
+
+        <!-- ================= RESULTS ================= -->
+        <section class="screen modal-screen" id="screen-results">
+          <div class="modal modal-results">
+            <div class="result-seal">&#10003;</div>
+            <div class="modal-kicker">ISLAND CLEARED</div>
+            <h2>LEVEL COMPLETE!</h2>
+            <div class="modal-sub" id="result-level">DAWN BEACH</div>
+            <div class="result-grid">
+              <div class="result-cell"><span>TIME</span><b id="result-time">00:00</b><i class="best-tag" id="result-time-best">NEW BEST</i></div>
+              <div class="result-cell"><span>BERRIES</span><b id="result-berries">0</b><i class="best-tag" id="result-berries-best">NEW BEST</i></div>
+              <div class="result-cell"><span>SECRETS</span><b id="result-secrets">0/0</b><i class="best-tag" id="result-secrets-best">NEW BEST</i></div>
+              <div class="result-cell"><span>DEFEATED</span><b id="result-kills">0</b><i class="best-tag">SCORE</i></div>
+            </div>
+            <div class="result-next" id="result-next-label"></div>
+            <div class="modal-buttons modal-buttons-row">
+              <button class="btn btn-gold" id="result-next-btn" data-action="next">NEXT LEVEL</button>
+              <button class="btn" data-action="replay">REPLAY</button>
+              <button class="btn" data-action="map">WORLD MAP</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= GAME OVER ================= -->
+        <section class="screen modal-screen" id="screen-gameover">
+          <div class="modal modal-gameover">
+            <div class="go-skull">&#9760;</div>
+            <div class="modal-kicker">THE SEA CLAIMS ANOTHER</div>
+            <h2>WIPED OUT</h2>
+            <div class="modal-sub" id="gameover-level">DAWN BEACH</div>
+            <div class="go-stats">BERRIES GATHERED <b id="gameover-berries">0</b></div>
+            <div class="modal-buttons modal-buttons-row">
+              <button class="btn btn-gold" data-action="retry">TRY AGAIN</button>
+              <button class="btn" data-action="quit">QUIT TO MENU</button>
+            </div>
+            <div class="pause-tip">Three lives. Five hearts. The Grand Line shows no mercy.</div>
+          </div>
+        </section>
+
+        <!-- ================= VICTORY ================= -->
+        <section class="screen victory-screen" id="screen-victory">
+          <div class="victory-rays"></div>
+          <div class="victory-inner">
+            <div class="victory-kicker">THE GRAND LINE IS YOURS</div>
+            <h2 class="victory-title">KING OF<br /><span>THE PIRATES</span></h2>
+            <div class="victory-sub">Every island cleared. Every boss defeated. The Straw Hats sail on.</div>
+            <div class="victory-grid" id="victory-stats"></div>
+            <button class="btn btn-gold victory-btn" data-action="quit">RETURN TO THE SEA</button>
+            <div class="victory-foot">THANK YOU FOR PLAYING</div>
+          </div>
+        </section>
+
+        <div id="toasts" class="toasts" aria-live="polite"></div>
+      </div>
+
+      <div id="rotate-note">TURN YOUR DEVICE SIDEWAYS FOR THE FULL ADVENTURE</div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "one-piece-grand-line-adventure",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A handcrafted One Piece pixel-art platformer starring Luffy and the Straw Hat crew.",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "game",
+    "platformer",
+    "canvas",
+    "pixel-art",
+    "one-piece"
+  ],
+  "license": "MIT"
+}
