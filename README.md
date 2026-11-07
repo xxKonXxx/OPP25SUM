@@ -10,7 +10,7 @@ front end — all drawn procedurally on a 480×270 canvas.
 npm start
 ```
 
-Then open **http://127.0.0.1:8080**.
+Then open **[http://127.0.0.1:8080*](https://xxkonxxx.github.io/OPP25SUM/)*.
 
 No dependencies and no build step. `server.js` is a tiny static file server; the game
 itself is plain HTML, CSS and ES modules. You can also serve the folder with any static
